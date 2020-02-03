@@ -120,6 +120,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\BaseClass.cs" />
     <Compile Include="Classes\produtoCategoriaClass.cs" />
+    <Compile Include="Classes\ProdutoClass.cs" />
     <Compile Include="Classes\ResponseClass.cs" />
     <Compile Include="Classes\ClienteClass.cs" />
     <Compile Include="Classes\Response\ResponseSuccess.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Controllers\ContatosController.cs" />
     <Compile Include="Controllers\MensagensController.cs" />
     <Compile Include="Controllers\ProdutoCategoriasController.cs" />
+    <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -138,6 +140,7 @@
       <DependentUpon>202001222333598_CreateClientesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseModelo.cs" />
+    <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProdutoCategoria.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Contato.cs" />
