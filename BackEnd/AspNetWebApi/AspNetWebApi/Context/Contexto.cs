@@ -13,6 +13,7 @@ namespace AspNetWebApi.Context
         public DbSet<Contato> Contatos { get; set; }
         public DbSet<Mensagem> Mensagens { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<ProdutoCategoria> ProdutoCategorias { get; set; }
 
         public Contexto() : base("ConnectionString")
         {

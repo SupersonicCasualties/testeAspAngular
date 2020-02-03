@@ -10,9 +10,9 @@ namespace AspNetWebApi.Models
     public class Cliente : BaseModelo
     {
 
-        [Required, MaxLength(100)]
+        [Required(ErrorMessage = "Nome é obrigatório!"), MaxLength(100)]
         public string Nome { get; set; }
-        [Required, MaxLength(200), EmailAddress(ErrorMessage = "Email invalido!"), Index(IsUnique = true)]
+        [Required(ErrorMessage = "E-Mail é obrigatório!"), MaxLength(200), EmailAddress(ErrorMessage = "Email invalido!"), Index(IsUnique = true)]
         public string Email { get; set; }
 
         [MaxLength(10)]
@@ -40,8 +40,6 @@ namespace AspNetWebApi.Models
 
         [MaxLength(30)]
         public string Complemento { get; set; }
-
-        public bool Ativo { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

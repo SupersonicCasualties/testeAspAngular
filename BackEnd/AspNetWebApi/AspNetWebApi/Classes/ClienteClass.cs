@@ -54,7 +54,6 @@ namespace AspNetWebApi.Classes
             this.Cep = cliente.Cep;
             this.PontoReferencia = cliente.PontoReferencia;
             this.Complemento = cliente.Complemento;
-            this.Ativo = cliente.Ativo;
             this.CreatedAt = cliente.CreatedAt;
             this.UpdatedAt = cliente.UpdatedAt;
 
@@ -75,7 +74,6 @@ namespace AspNetWebApi.Classes
             cliModel.Cep = this.Cep;
             cliModel.PontoReferencia = this.PontoReferencia;
             cliModel.Complemento = this.Complemento;
-            cliModel.Ativo = this.Ativo;
             cliModel.CreatedAt = create ? DateTime.Now : this.CreatedAt;
             cliModel.UpdatedAt = DateTime.Now;
 
@@ -84,19 +82,18 @@ namespace AspNetWebApi.Classes
 
         public Cliente MapToClienteModel(Cliente cliente)
         {
-            cliente.Nome = this.Nome;
-            cliente.Email = this.Email;
-            cliente.Cpf = this.Cpf;
-            cliente.Uf = this.Uf;
-            cliente.Cidade = this.Cidade;
-            cliente.Bairro = this.Bairro;
-            cliente.Rua = this.Rua;
-            cliente.Numero = this.Numero;
-            cliente.Cep = this.Cep;
-            cliente.PontoReferencia = this.PontoReferencia;
-            cliente.Complemento = this.Complemento;
-            cliente.Ativo = this.Ativo;
-            cliente.CreatedAt = this.CreatedAt;
+            cliente.Nome = Nome ?? cliente.Nome;
+            cliente.Email = Email ?? cliente.Email;
+            cliente.Cpf = Cpf ?? cliente.Cpf;
+            cliente.Uf = Uf ?? cliente.Uf;
+            cliente.Cidade = Cidade ?? cliente.Cidade;
+            cliente.Bairro = Bairro ?? cliente.Bairro;
+            cliente.Rua = Rua ?? cliente.Rua;
+            cliente.Numero = Numero ?? cliente.Numero;
+            cliente.Cep = Cep ?? cliente.Cep;
+            cliente.PontoReferencia = PontoReferencia ?? cliente.PontoReferencia;
+            cliente.Complemento = Complemento ?? cliente.Complemento;
+            cliente.CreatedAt = cliente.CreatedAt;
             cliente.UpdatedAt = DateTime.Now;
 
             return cliente;

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
@@ -9,7 +11,9 @@ using System.Web.Caching;
 using System.Web.Http;
 using AspNetWebApi.Context;
 using AspNetWebApi.Classes;
+using AspNetWebApi.Classes.Response;
 using AspNetWebApi.Models;
+using AspNetWebApi.Utils;
 
 namespace AspNetWebApi.Controllers
 {
@@ -17,12 +21,12 @@ namespace AspNetWebApi.Controllers
     {
 
         [HttpGet]
-        public List<ClienteClass> Get()
+        public IHttpActionResult Get()
         {
             var _dbCon = new Contexto().Clientes;
 
             var clientes = _dbCon.ToList();
-            var clientesList = new List<ClienteClass>();
+            var clientesList = new List<BaseClass>();
 
             foreach (var cliente in clientes)
             {
@@ -31,34 +35,57 @@ namespace AspNetWebApi.Controllers
                 clientesList.Add(cli);
             }
 
-            return clientesList;
+            return Util.ResponseSuccess(Request, clientesList, "Sucesso");
+        }
+
+        [HttpGet]
+        [Route("api/clientes/{id}")]
+        public IHttpActionResult Get(long id)
+        {
+            var _dbCon = new Contexto().Clientes;
+            Cliente cliente = _dbCon.Find(id);
+
+            if (cliente == null)
+            {
+                return Util.ResponseError(Request, "Cliente não encontrado!");
+            }
+
+            BaseClass clienteClass = new ClienteClass().MapFromClienteModel(cliente);
+
+            return Util.ResponseSuccess(Request, clienteClass, "Sucesso");
         }
 
         [HttpPost]
-        public HttpResponseMessage Novo(ClienteClass clienteClass)
+        public IHttpActionResult Novo(ClienteClass clienteClass)
         {
-            var _dbCon = new Contexto();
-            var _Cli = _dbCon.Clientes;
+            try
+            {
+                var _dbCon = new Contexto();
+                var _Cli = _dbCon.Clientes;
 
-            var dbCliente = clienteClass.MapToClienteModel(true);
+                var dbCliente = clienteClass.MapToClienteModel(true);
 
-            var a = _Cli.Add(dbCliente);
-            var b = _dbCon.SaveChanges();
+                var a = _Cli.Add(dbCliente);
+                var b = _dbCon.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return Util.ResponseError(Request, e);
+            }
 
-            return new HttpResponseMessage(HttpStatusCode.Accepted);
+            return Util.ResponseSuccess(Request, clienteClass, "Cliente inserido com sucesso!");
         }
 
         [HttpPut]
         [Route("api/cliente/{id}/update")]
-        public bool Update(long Id, ClienteClass clienteClass)
+        public IHttpActionResult Update(long Id, ClienteClass clienteClass)
         {
             var _dbCon = new Contexto();
             var _Cli = _dbCon.Clientes;
-            bool status = true;
+            Cliente cliente = _Cli.Find(Id);
 
             try
             {
-                Cliente cliente = _Cli.Find(Id);
                 if (cliente != null)
                 {
                     clienteClass.MapToClienteModel(cliente);
@@ -66,40 +93,36 @@ namespace AspNetWebApi.Controllers
                     _dbCon.SaveChanges();
                 }
             }
-            catch (DbEntityValidationException val)
-            {
-                status = false;
-                string errors = "";
-                foreach (var error in val.EntityValidationErrors)
-                {
-                    foreach (var err in error.ValidationErrors)
-                    {
-                        errors += $"Propriedade: {err.PropertyName}, Erro: {err.ErrorMessage}";
-                    }
-                }
-
-            }
             catch (Exception e)
             {
-                status = false;
+                return Util.ResponseError(Request, e);
             }
 
-            return status;
+            clienteClass.MapFromClienteModel(cliente);
+
+            return Util.ResponseSuccess(Request, clienteClass, "Cliente atualizado com sucesso!");
         }
 
         [HttpDelete]
         [Route("api/cliente/{id}/remove")]
-        public bool Remove(long id)
+        public IHttpActionResult Remove(long id)
         {
-            var _dbCon = new Contexto();
-            var _Cli = _dbCon.Clientes;
+            try
+            {
+                var _dbcon = new Contexto();
+                var _cli = _dbcon.Clientes;
 
-            Cliente cliente = _Cli.Find(id);
+                Cliente cliente = _cli.Find(id);
 
-            _Cli.Remove(cliente);
-            _dbCon.SaveChanges();
+                _cli.Remove(cliente);
+                _dbcon.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return Util.ResponseError(Request, e);
+            }
 
-            return true;
+            return Util.ResponseSuccess(Request, "Cliente removido com sucesso");
         }
     }
 }
