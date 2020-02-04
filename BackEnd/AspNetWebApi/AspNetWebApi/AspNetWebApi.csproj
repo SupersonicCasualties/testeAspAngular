@@ -143,6 +143,8 @@
     </Compile>
     <Compile Include="Models\BaseModelo.cs" />
     <Compile Include="Models\CondicaoPagamento.cs" />
+    <Compile Include="Models\Pedido.cs" />
+    <Compile Include="Models\PedidoItem.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProdutoCategoria.cs" />
     <Compile Include="Models\Cliente.cs" />
@@ -200,7 +202,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
