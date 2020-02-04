@@ -14,7 +14,9 @@ namespace AspNetWebApi.Utils
     {
         public static ResponseError ResponseError(HttpRequestMessage request, Exception e)
         {
-            var strError = e.InnerException?.InnerException != null ? e.InnerException.InnerException.Message : e.InnerException?.Message;
+            string strError = (e.InnerException?.InnerException != null ? e.InnerException.InnerException.Message : e.InnerException?.Message) ??
+                              e.Message;
+
             return ResponseError(request, strError);
         }
 

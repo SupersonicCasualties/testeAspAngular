@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\BaseClass.cs" />
+    <Compile Include="Classes\CondicaoPagamentoClass.cs" />
     <Compile Include="Classes\ProdutoCategoriaClass.cs" />
     <Compile Include="Classes\ProdutoClass.cs" />
     <Compile Include="Classes\ResponseClass.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Context\ConfiguracaoContexto.cs" />
     <Compile Include="Context\Contexto.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\CondicaoPagamentoController.cs" />
     <Compile Include="Controllers\ContatosController.cs" />
     <Compile Include="Controllers\MensagensController.cs" />
     <Compile Include="Controllers\ProdutoCategoriasController.cs" />
@@ -140,6 +142,7 @@
       <DependentUpon>202001222333598_CreateClientesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseModelo.cs" />
+    <Compile Include="Models\CondicaoPagamento.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProdutoCategoria.cs" />
     <Compile Include="Models\Cliente.cs" />
