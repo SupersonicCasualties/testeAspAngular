@@ -119,7 +119,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\BaseClass.cs" />
-    <Compile Include="Classes\produtoCategoriaClass.cs" />
+    <Compile Include="Classes\ProdutoCategoriaClass.cs" />
     <Compile Include="Classes\ProdutoClass.cs" />
     <Compile Include="Classes\ResponseClass.cs" />
     <Compile Include="Classes\ClienteClass.cs" />

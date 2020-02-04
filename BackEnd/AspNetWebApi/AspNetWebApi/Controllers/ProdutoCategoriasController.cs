@@ -32,7 +32,7 @@ namespace AspNetWebApi.Controllers
 
             foreach (var cate in categorias)
             {
-                var categoria = new produtoCategoriaClass();
+                var categoria = new ProdutoCategoriaClass();
                 categoria.mapFromModel(cate);
                 categoriasList.Add(categoria);
             }
@@ -50,14 +50,14 @@ namespace AspNetWebApi.Controllers
             {
                 return Util.ResponseError(Request, "Categoria de Produto não encontrado!");
             }
-            BaseClass produtoCategoria = new produtoCategoriaClass().mapFromModel(categoria);
+            BaseClass produtoCategoria = new ProdutoCategoriaClass().mapFromModel(categoria);
 
             return Util.ResponseSuccess(Request, produtoCategoria, "Sucesso");
         }
 
         [HttpPut]
         [Route("api/produtocategorias/{id}/update")]
-        public IHttpActionResult Update(long id, produtoCategoriaClass produtoCategoriaClass)
+        public IHttpActionResult Update(long id, ProdutoCategoriaClass produtoCategoriaClass)
         {
             var _Cate = db.ProdutoCategorias;
             ProdutoCategoria categoria = _Cate.Find(id);
@@ -82,7 +82,7 @@ namespace AspNetWebApi.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Novo(produtoCategoriaClass produtoCategoria)
+        public IHttpActionResult Novo(ProdutoCategoriaClass produtoCategoria)
         {
             if (!ModelState.IsValid)
             {
@@ -95,6 +95,8 @@ namespace AspNetWebApi.Controllers
 
                 db.ProdutoCategorias.Add(categoria);
                 db.SaveChanges();
+
+                produtoCategoria.mapFromModel(categoria);
             }
             catch (Exception e)
             {

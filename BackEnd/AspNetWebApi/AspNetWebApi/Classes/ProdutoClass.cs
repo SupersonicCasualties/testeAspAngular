@@ -12,6 +12,8 @@ namespace AspNetWebApi.Classes
         public decimal PrecoVenda { get; set; }
         public string Imagem { get; set; }
         public int CodigoBarras { get; set; }
+        public long ProdutoCategoriaId { get; set; }
+        public ProdutoCategoria ProdutoCategoria { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
@@ -24,6 +26,7 @@ namespace AspNetWebApi.Classes
             PrecoVenda = produto.PrecoVenda;
             Imagem = produto.Imagem;
             CodigoBarras = produto.CodigoBarras;
+            ProdutoCategoria = produto.ProdutoCategoria;
             CreatedAt = produto.CreatedAt;
             UpdatedAt = produto.UpdatedAt;
 
@@ -36,7 +39,8 @@ namespace AspNetWebApi.Classes
             produto.Descricao = Descricao;
             produto.PrecoVenda = PrecoVenda;
             produto.Imagem = Imagem;
-            produto.CodigoBarras = CodigoBarras;
+            produto.ProdutoCategoria = ProdutoCategoria;
+            produto.CodigoBarras = produto.CodigoBarras > 0 ? produto.CodigoBarras : CodigoBarras;
             produto.CreatedAt = create ? DateTime.Now : CreatedAt;
             produto.UpdatedAt = DateTime.Now;
 
@@ -48,6 +52,7 @@ namespace AspNetWebApi.Classes
             produto.Descricao = Descricao ?? produto.Descricao;
             produto.PrecoVenda = PrecoVenda > 0 ? PrecoVenda : produto.PrecoVenda;
             produto.Imagem = Imagem ?? produto.Imagem;
+            produto.CodigoBarras = produto.CodigoBarras > 0 ? produto.CodigoBarras : CodigoBarras;
             produto.CreatedAt = produto.CreatedAt;
             produto.UpdatedAt = DateTime.Now;
 

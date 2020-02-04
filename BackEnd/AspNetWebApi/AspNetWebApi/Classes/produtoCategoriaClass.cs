@@ -6,7 +6,7 @@ using AspNetWebApi.Models;
 
 namespace AspNetWebApi.Classes
 {
-    public class produtoCategoriaClass : BaseClass
+    public class ProdutoCategoriaClass : BaseClass
     {
         public string Descricao { get; set; }
 
@@ -14,9 +14,9 @@ namespace AspNetWebApi.Classes
 
         public DateTime UpdatedAt { get; set; }
 
-        public produtoCategoriaClass() { }
+        public ProdutoCategoriaClass() { }
 
-        public produtoCategoriaClass mapFromModel(ProdutoCategoria categoria)
+        public ProdutoCategoriaClass mapFromModel(ProdutoCategoria categoria)
         {
             Id = categoria.Id;
             Descricao = categoria.descricao;
