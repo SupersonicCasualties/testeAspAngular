@@ -140,6 +140,8 @@
       <DependentUpon>202001222333598_CreateClientesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseModelo.cs" />
+    <Compile Include="Models\Pedido.cs" />
+    <Compile Include="Models\PedidoItem.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\ProdutoCategoria.cs" />
     <Compile Include="Models\Cliente.cs" />
