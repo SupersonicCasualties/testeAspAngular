@@ -10,6 +10,8 @@ namespace AspNetWebApi.Classes
     {
         public Pedido Pedido { get; set; }
 
+        public long ProdutoId { get; set; }
+
         public Produto Produto { get; set; }
 
         public decimal ValorUnitario { get; set; }
@@ -30,6 +32,7 @@ namespace AspNetWebApi.Classes
         {
             Id = item.Id;
             Pedido = item.Pedido;
+            ProdutoId = item.Produto.Id;
             Produto = item.Produto;
             ValorUnitario = item.ValorUnitario;
             ValorBruto = item.ValorBruto;

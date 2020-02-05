@@ -9,6 +9,8 @@ namespace AspNetWebApi.Classes
 {
     public class PedidoClass : BaseClass
     {
+        public long ClienteId { get; set; }
+
         public Cliente Cliente { get; set; }
 
         public decimal ValorTotal { get; set; }
@@ -17,9 +19,13 @@ namespace AspNetWebApi.Classes
 
         public DateTime DataHora { get; set; }
 
-        public CondicaoPagamento condicaoPagamento { get; set; }
+        public long CondicaoPagamentoId { get; set; }
 
-        public ICollection<PedidoItem> PedidoItems { get; set; }
+        public CondicaoPagamento CondicaoPagamento { get; set; }
+
+        public ICollection<PedidoItemClass> PedidoItems { get; set; }
+
+        public ICollection<PedidoItem> PedidoItemsModel { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
@@ -30,12 +36,14 @@ namespace AspNetWebApi.Classes
         public PedidoClass mapFromModel(Pedido pedido)
         {
             Id = pedido.Id;
+            ClienteId = pedido.Cliente.Id;
             Cliente = pedido.Cliente;
             ValorTotal = pedido.ValorTotal;
             Desconto = pedido.Desconto;
             DataHora = pedido.DataHora;
-            condicaoPagamento = pedido.CondicaoPagamento;
-            PedidoItems = pedido.PedidoItems;
+            CondicaoPagamentoId = pedido.CondicaoPagamento.Id;
+            CondicaoPagamento = pedido.CondicaoPagamento;
+            PedidoItemsModel = pedido.PedidoItems;
             CreatedAt = pedido.CreatedAt;
             UpdatedAt = pedido.UpdatedAt;
 
@@ -50,7 +58,7 @@ namespace AspNetWebApi.Classes
             pedido.ValorTotal = ValorTotal;
             pedido.Desconto = Desconto;
             pedido.DataHora = DataHora;
-            pedido.CondicaoPagamento = condicaoPagamento;
+            pedido.CondicaoPagamento = CondicaoPagamento;
             pedido.CreatedAt = create ? DateTime.Now : CreatedAt;
             pedido.UpdatedAt = DateTime.Now;
 
