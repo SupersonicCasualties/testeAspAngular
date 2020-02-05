@@ -22,5 +22,9 @@ namespace AspNetWebApi.Models
 
         public int Quantidade { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
+
     }
 }

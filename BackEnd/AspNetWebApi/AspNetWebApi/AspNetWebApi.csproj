@@ -119,6 +119,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Classes\BaseClass.cs" />
+    <Compile Include="Classes\PedidoItemClass.cs" />
+    <Compile Include="Classes\PedidoClass.cs" />
     <Compile Include="Classes\CondicaoPagamentoClass.cs" />
     <Compile Include="Classes\ProdutoCategoriaClass.cs" />
     <Compile Include="Classes\ProdutoClass.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Controllers\CondicaoPagamentoController.cs" />
     <Compile Include="Controllers\ContatosController.cs" />
     <Compile Include="Controllers\MensagensController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProdutoCategoriasController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Global.asax.cs">

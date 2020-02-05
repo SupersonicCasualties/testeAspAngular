@@ -15,11 +15,15 @@ namespace AspNetWebApi.Models
 
         public decimal Desconto { get; set; }
 
-        //[Required]
-        //public CondicaoPagamento condicaoPagamento { get; set; }
+        public DateTime DataHora { get; set; }
+
+        [Required]
+        public CondicaoPagamento CondicaoPagamento { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
         public DateTime UpdatedAt { get; set; }
+
+        public ICollection<PedidoItem> PedidoItems { get; set; }
     }
 }

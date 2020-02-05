@@ -22,6 +22,10 @@ namespace AspNetWebApi.Context
 
         public DbSet<CondicaoPagamento> CondicaoPagamentos { get; set; }
 
+        public DbSet<Pedido> Pedidos { get; set; }
+
+        public DbSet<PedidoItem> PedidoItems { get; set; }
+
         public Contexto() : base("ConnectionString")
         {
         }
