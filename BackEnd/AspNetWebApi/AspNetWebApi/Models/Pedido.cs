@@ -11,7 +11,9 @@ namespace AspNetWebApi.Models
         [Required]
         public Cliente Cliente { get; set; }
 
-        public decimal ValorTotal { get; set; }
+        public decimal ValorLiquido { get; set; }
+
+        public decimal ValorBruto { get; set; }
 
         public decimal Desconto { get; set; }
 

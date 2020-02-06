@@ -20,15 +20,17 @@ namespace AspNetWebApi.Services
             this.pedidoClass = pedidoClass;
         }
 
-        public void ProcessaNovoPedido()
+        public Pedido ProcessaNovoPedido()
         {
-            pedidoClass = preencherCampos(pedidoClass);
+            preencherCampos(pedidoClass);
 
             Pedido pedido = pedidoClass.mapToModel(true);
 
-            db.Pedidos.Add(pedido);
+            Pedido ped = db.Pedidos.Add(pedido);
             adicionarPedidoItems(pedido, pedidoClass.PedidoItems);
             db.SaveChanges();
+
+            return ped;
         }
 
         private void adicionarPedidoItems(Pedido pedido, ICollection<PedidoItemClass> pedidoItems)
@@ -41,22 +43,27 @@ namespace AspNetWebApi.Services
             }
         }
 
-        private PedidoClass preencherCampos(PedidoClass pedidoClass)
+        private void preencherCampos(PedidoClass pedidoClass)
         {
 
             pedidoClass.Cliente = db.Clientes.Find(pedidoClass.ClienteId);
             pedidoClass.CondicaoPagamento = db.CondicaoPagamentos.Find(pedidoClass.CondicaoPagamentoId);
 
-            decimal valorTotal = 0;
+            decimal valorBruto = 0;
+            decimal valorLiquido = 0;
+            decimal desconto = 0;
             foreach (var item in pedidoClass.PedidoItems)
             {
                 item.Produto = db.Produtos.Find(item.ProdutoId);
-                valorTotal += item.ValorLiquido;
+                valorLiquido += item.ValorLiquido;
+                valorBruto += item.ValorBruto;
+                desconto += item.Desconto;
             }
 
-            pedidoClass.ValorTotal = valorTotal;
+            pedidoClass.ValorBruto = valorBruto;
+            pedidoClass.ValorLiquido = valorLiquido;
+            pedidoClass.Desconto = desconto;
 
-            return pedidoClass;
         }
     }
 }

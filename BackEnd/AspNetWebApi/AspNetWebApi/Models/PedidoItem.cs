@@ -20,6 +20,8 @@ namespace AspNetWebApi.Models
 
         public decimal ValorLiquido { get; set; }
 
+        public decimal Desconto { get; set; }
+
         public int Quantidade { get; set; }
 
         public DateTime CreatedAt { get; set; }

@@ -20,6 +20,8 @@ namespace AspNetWebApi.Classes
 
         public decimal ValorLiquido { get; set; }
 
+        public decimal Desconto { get; set; }
+
         public int Quantidade { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -31,12 +33,12 @@ namespace AspNetWebApi.Classes
         public PedidoItemClass mapFromModel(PedidoItem item)
         {
             Id = item.Id;
-            Pedido = item.Pedido;
             ProdutoId = item.Produto.Id;
             Produto = item.Produto;
             ValorUnitario = item.ValorUnitario;
             ValorBruto = item.ValorBruto;
             ValorLiquido = item.ValorLiquido;
+            Desconto = item.Desconto;
             Quantidade = item.Quantidade;
             CreatedAt = item.CreatedAt;
             UpdatedAt = item.UpdatedAt;
@@ -53,6 +55,7 @@ namespace AspNetWebApi.Classes
             item.ValorUnitario = ValorUnitario;
             item.ValorBruto = ValorBruto;
             item.ValorLiquido = ValorLiquido;
+            item.Desconto = Desconto;
             item.Quantidade = Quantidade;
             item.CreatedAt = create ? DateTime.Now : CreatedAt;
             item.UpdatedAt = DateTime.Now;
@@ -65,6 +68,7 @@ namespace AspNetWebApi.Classes
             item.ValorUnitario = ValorUnitario > 0 ? ValorUnitario : item.ValorUnitario;
             item.ValorBruto = ValorBruto > 0 ? ValorBruto : item.ValorBruto;
             item.ValorLiquido = ValorLiquido > 0 ? ValorLiquido : item.ValorLiquido;
+            item.ValorLiquido = Desconto > 0 ? Desconto : item.Desconto;
             item.Quantidade = Quantidade > 0 ? Quantidade : item.Quantidade;
             item.CreatedAt = item.CreatedAt;
             item.UpdatedAt = DateTime.Now;

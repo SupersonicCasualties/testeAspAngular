@@ -8,6 +8,7 @@ using AspNetWebApi.Classes;
 using AspNetWebApi.Context;
 using AspNetWebApi.Utils;
 using System.Data.Entity;
+using AspNetWebApi.Models;
 using AspNetWebApi.Services;
 
 namespace AspNetWebApi.Controllers
@@ -40,19 +41,20 @@ namespace AspNetWebApi.Controllers
         [HttpPost]
         public IHttpActionResult Novo(PedidoClass pedidoClass)
         {
-
             try
             {
                 PedidoService service = new PedidoService(pedidoClass);
 
-                service.ProcessaNovoPedido();
+                Pedido pedido = service.ProcessaNovoPedido();
+
+                pedidoClass.mapFromModel(pedido);
             }
             catch (Exception e)
             {
                 return Util.ResponseError(Request, e);
             }
 
-            return Util.ResponseSuccess(Request, "Sucesso");
+            return Util.ResponseSuccess(Request, pedidoClass, "Sucesso");
         }
     }
 }

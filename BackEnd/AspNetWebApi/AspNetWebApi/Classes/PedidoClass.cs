@@ -13,7 +13,9 @@ namespace AspNetWebApi.Classes
 
         public Cliente Cliente { get; set; }
 
-        public decimal ValorTotal { get; set; }
+        public decimal ValorLiquido { get; set; }
+
+        public decimal ValorBruto { get; set; }
 
         public decimal Desconto { get; set; }
 
@@ -38,14 +40,25 @@ namespace AspNetWebApi.Classes
             Id = pedido.Id;
             ClienteId = pedido.Cliente.Id;
             Cliente = pedido.Cliente;
-            ValorTotal = pedido.ValorTotal;
+            ValorLiquido = pedido.ValorLiquido;
+            ValorBruto = pedido.ValorBruto;
             Desconto = pedido.Desconto;
             DataHora = pedido.DataHora;
             CondicaoPagamentoId = pedido.CondicaoPagamento.Id;
             CondicaoPagamento = pedido.CondicaoPagamento;
-            PedidoItemsModel = pedido.PedidoItems;
             CreatedAt = pedido.CreatedAt;
             UpdatedAt = pedido.UpdatedAt;
+
+            if (pedido.PedidoItems.Count <= 0) return this;
+            List<PedidoItemClass> items = new List<PedidoItemClass>();
+            foreach (var item in pedido.PedidoItems)
+            {
+                PedidoItemClass itemClass = new PedidoItemClass();
+                itemClass.mapFromModel(item);
+                items.Add(itemClass);
+            }
+
+            PedidoItems = items;
 
             return this;
         }
@@ -55,7 +68,8 @@ namespace AspNetWebApi.Classes
             Pedido pedido = new Pedido();
 
             pedido.Cliente = Cliente;
-            pedido.ValorTotal = ValorTotal;
+            pedido.ValorLiquido = ValorLiquido;
+            pedido.ValorBruto = ValorBruto;
             pedido.Desconto = Desconto;
             pedido.DataHora = DataHora;
             pedido.CondicaoPagamento = CondicaoPagamento;
@@ -67,7 +81,8 @@ namespace AspNetWebApi.Classes
 
         public Pedido mapToModel(Pedido pedido)
         {
-            pedido.ValorTotal = ValorTotal > 0 ? ValorTotal : pedido.ValorTotal;
+            pedido.ValorLiquido = ValorLiquido > 0 ? ValorLiquido : pedido.ValorLiquido;
+            pedido.ValorBruto = ValorBruto > 0 ? ValorBruto : pedido.ValorBruto;
             pedido.Desconto = Desconto > 0 ? Desconto : pedido.Desconto;
             pedido.DataHora = DataHora;
             pedido.CreatedAt = pedido.CreatedAt;
