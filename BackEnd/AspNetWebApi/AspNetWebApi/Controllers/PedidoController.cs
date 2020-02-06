@@ -24,21 +24,42 @@ namespace AspNetWebApi.Controllers
                 .Include(p => p.Cliente)
                 .Include(p => p.CondicaoPagamento)
                 .Include(p => p.PedidoItems)
+                .Include("PedidoItems.Produto")
+                .Take(25)
                 .ToList();
 
             var pedidosList = new List<BaseClass>();
 
             foreach (var ped in pedidos)
             {
-                var condicao = new PedidoClass();
-                //condicao.mapFromModel(cond);
-                //condicaoList.Add(condicao);
+                var pedidoClass = new PedidoClass();
+                pedidoClass.mapFromModel(ped);
+                pedidosList.Add(pedidoClass);
             }
 
             return Util.ResponseSuccess(Request, pedidosList, "Sucesso");
         }
 
+        [HttpGet]
+        [Route("api/pedido/{id}")]
+        public IHttpActionResult Get(long id)
+        {
+            var pedido = db.Pedidos
+                .Include(p => p.Cliente)
+                .Include(p => p.CondicaoPagamento)
+                .Include(p => p.PedidoItems)
+                .Include("PedidoItems.Produto")
+                .First(p => p.Id == id);
+
+            PedidoClass pedidoClass = new PedidoClass();
+
+            pedidoClass.mapFromModel(pedido);
+
+            return Util.ResponseSuccess(Request, pedidoClass, "Sucesso");
+        }
+
         [HttpPost]
+        [Route("api/pedido/novo")]
         public IHttpActionResult Novo(PedidoClass pedidoClass)
         {
             try
@@ -55,6 +76,46 @@ namespace AspNetWebApi.Controllers
             }
 
             return Util.ResponseSuccess(Request, pedidoClass, "Sucesso");
+        }
+
+        [HttpPut]
+        [Route("api/pedido/{id}/update")]
+        public IHttpActionResult Update(long id, PedidoClass pedidoClass)
+        {
+            try
+            {
+                PedidoService service = new PedidoService(pedidoClass);
+
+                pedidoClass.Id = id;
+
+                Pedido pedido = service.ProcessaEdicaoPedido();
+
+                pedidoClass.mapFromModel(pedido);
+            }
+            catch (Exception e)
+            {
+                return Util.ResponseError(Request, e);
+            }
+
+            return Util.ResponseSuccess(Request, pedidoClass, "Sucesso");
+        }
+
+        [HttpDelete]
+        [Route("api/pedido/{id}/remove")]
+        public IHttpActionResult Remove(long id)
+        {
+            try
+            {
+                PedidoService service = new PedidoService();
+
+                service.RemovePedido(id);
+            }
+            catch (Exception e)
+            {
+                return Util.ResponseError(Request, e);
+            }
+
+            return Util.ResponseSuccess(Request, "Pedido removido com sucesso");
         }
     }
 }

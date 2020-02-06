@@ -50,6 +50,7 @@ namespace AspNetWebApi.Classes
             UpdatedAt = pedido.UpdatedAt;
 
             if (pedido.PedidoItems.Count <= 0) return this;
+
             List<PedidoItemClass> items = new List<PedidoItemClass>();
             foreach (var item in pedido.PedidoItems)
             {
