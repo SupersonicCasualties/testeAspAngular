@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AspNetWebApi.Classes;
 using AspNetWebApi.Context;
@@ -86,9 +84,7 @@ namespace AspNetWebApi.Controllers
             {
                 PedidoService service = new PedidoService(pedidoClass);
 
-                pedidoClass.Id = id;
-
-                Pedido pedido = service.ProcessaEdicaoPedido();
+                Pedido pedido = service.ProcessaEdicaoPedido(id);
 
                 pedidoClass.mapFromModel(pedido);
             }

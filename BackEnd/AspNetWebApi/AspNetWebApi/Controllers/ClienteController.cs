@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Web.Caching;
 using System.Web.Http;
 using AspNetWebApi.Context;
 using AspNetWebApi.Classes;
-using AspNetWebApi.Classes.Response;
 using AspNetWebApi.Models;
 using AspNetWebApi.Utils;
 
@@ -19,13 +11,13 @@ namespace AspNetWebApi.Controllers
 {
     public class ClienteController : ApiController
     {
+        Contexto db = new Contexto();
 
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var _dbCon = new Contexto().Clientes;
-
-            var clientes = _dbCon.ToList();
+            var clientes = db.Clientes.ToList();
+            
             var clientesList = new List<BaseClass>();
 
             foreach (var cliente in clientes)
@@ -39,11 +31,10 @@ namespace AspNetWebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/clientes/{id}")]
+        [Route("api/cliente/{id}")]
         public IHttpActionResult Get(long id)
         {
-            var _dbCon = new Contexto().Clientes;
-            Cliente cliente = _dbCon.Find(id);
+            Cliente cliente = db.Clientes.Find(id);
 
             if (cliente == null)
             {
@@ -56,17 +47,19 @@ namespace AspNetWebApi.Controllers
         }
 
         [HttpPost]
+        [Route("api/cliente/novo")]
         public IHttpActionResult Novo(ClienteClass clienteClass)
         {
             try
             {
-                var _dbCon = new Contexto();
-                var _Cli = _dbCon.Clientes;
+                var _Cli = db.Clientes;
 
                 var dbCliente = clienteClass.MapToClienteModel(true);
 
-                var a = _Cli.Add(dbCliente);
-                var b = _dbCon.SaveChanges();
+                _Cli.Add(dbCliente);
+                db.SaveChanges();
+
+                clienteClass.MapFromClienteModel(dbCliente);
             }
             catch (Exception e)
             {
@@ -80,9 +73,7 @@ namespace AspNetWebApi.Controllers
         [Route("api/cliente/{id}/update")]
         public IHttpActionResult Update(long Id, ClienteClass clienteClass)
         {
-            var _dbCon = new Contexto();
-            var _Cli = _dbCon.Clientes;
-            Cliente cliente = _Cli.Find(Id);
+            Cliente cliente = db.Clientes.Find(Id);
 
             try
             {
@@ -90,7 +81,7 @@ namespace AspNetWebApi.Controllers
                 {
                     clienteClass.MapToClienteModel(cliente);
 
-                    _dbCon.SaveChanges();
+                    db.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -109,13 +100,10 @@ namespace AspNetWebApi.Controllers
         {
             try
             {
-                var _dbcon = new Contexto();
-                var _cli = _dbcon.Clientes;
+                Cliente cliente = db.Clientes.Find(id);
 
-                Cliente cliente = _cli.Find(id);
-
-                _cli.Remove(cliente);
-                _dbcon.SaveChanges();
+                db.Clientes.Remove(cliente);
+                db.SaveChanges();
             }
             catch (Exception e)
             {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AspNetWebApi.Classes;
 using AspNetWebApi.Context;
@@ -18,9 +16,7 @@ namespace AspNetWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var _dbCon = db.CondicaoPagamentos;
-
-            var condicoes = _dbCon.ToList();
+            var condicoes = db.CondicaoPagamentos.ToList();
             var condicaoList = new List<BaseClass>();
 
             foreach (var cond in condicoes)
@@ -52,12 +48,11 @@ namespace AspNetWebApi.Controllers
         [Route("api/condicaopagamento/{id}/update")]
         public IHttpActionResult Update(long id, CondicaoPagamentoClass condicaoPagamento)
         {
-            var _Cate = db.CondicaoPagamentos;
-            CondicaoPagamento condicao = _Cate.Find(id);
+            CondicaoPagamento condicao = db.CondicaoPagamentos.Find(id);
 
             try
             {
-                ValidateTIpo(condicaoPagamento, false);
+                ValidateTipo(condicaoPagamento, false);
 
                 if (condicao != null)
                 {
@@ -77,6 +72,7 @@ namespace AspNetWebApi.Controllers
         }
 
         [HttpPost]
+        [Route("api/condicaopagamento/novo")]
         public IHttpActionResult Novo(CondicaoPagamentoClass condicaoPagamento)
         {
             if (!ModelState.IsValid)
@@ -86,7 +82,7 @@ namespace AspNetWebApi.Controllers
 
             try
             {
-                ValidateTIpo(condicaoPagamento, true);
+                ValidateTipo(condicaoPagamento, true);
 
                 var condicao = condicaoPagamento.mapToModel(true);
 
@@ -126,7 +122,7 @@ namespace AspNetWebApi.Controllers
             return Util.ResponseSuccess(Request, "Condição de Pagamento removida com sucesso");
         }
 
-        private void ValidateTIpo(CondicaoPagamentoClass condicaoPagamento, bool create)
+        private void ValidateTipo(CondicaoPagamentoClass condicaoPagamento, bool create)
         {
             if (condicaoPagamento.Tipo == 0 && create)
             {

@@ -38,11 +38,16 @@ namespace AspNetWebApi.Services
             return ped;
         }
 
-        public Pedido ProcessaEdicaoPedido()
+        public Pedido ProcessaEdicaoPedido(long id)
         {
+            Pedido pedido = db.Pedidos.Include(p => p.PedidoItems).First(x => x.Id == id);
+
+            pedidoClass.mapToModel(pedido);
+            db.PedidoItems.RemoveRange(pedido.PedidoItems);
+
             preencherCampos(this.pedidoClass);
 
-            Pedido pedido = this.pedidoClass.mapToModel(true);
+            pedido = this.pedidoClass.mapToModel(pedido);
 
             adicionarPedidoItems(pedido, this.pedidoClass.PedidoItems);
             db.SaveChanges();
@@ -67,23 +72,6 @@ namespace AspNetWebApi.Services
 
         private void preencherCampos(PedidoClass pedidoClass)
         {
-
-            if (pedidoClass.Id > 0)
-            {
-                Pedido ped = db.Pedidos
-                    .Where(p => p.Id == pedidoClass.Id)
-                    .Include(p => p.PedidoItems)
-                    .SingleOrDefault();
-
-                if (ped == null)
-                {
-                    return;
-                }
-
-                pedidoClass.mapToModel(ped);
-                db.PedidoItems.RemoveRange(ped.PedidoItems);
-            }
-
             pedidoClass.Cliente = db.Clientes.Find(pedidoClass.ClienteId);
             pedidoClass.CondicaoPagamento = db.CondicaoPagamentos.Find(pedidoClass.CondicaoPagamentoId);
 

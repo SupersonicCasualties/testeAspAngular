@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
 using System.Web.Http;
-using System.Web.Http.Description;
 using AspNetWebApi.Classes;
 using AspNetWebApi.Context;
 using AspNetWebApi.Models;
@@ -16,18 +9,14 @@ using AspNetWebApi.Utils;
 
 namespace AspNetWebApi.Controllers
 {
-    public class ProdutoCategoriasController : ApiController
+    public class ProdutoCategoriaController : ApiController
     {
         private Contexto db = new Contexto();
 
         [HttpGet]
         public IHttpActionResult Get()
         {
-            //return db.ProdutoCategorias;
-
-            var _dbCon = db.ProdutoCategorias;
-
-            var categorias = _dbCon.ToList();
+            var categorias = db.ProdutoCategorias.ToList();
             var categoriasList = new List<BaseClass>();
 
             foreach (var cate in categorias)
@@ -41,7 +30,7 @@ namespace AspNetWebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/produtocategorias/{id}")]
+        [Route("api/produtocategoria/{id}")]
         public IHttpActionResult Get(long id)
         {
             var categoria = db.ProdutoCategorias.Find(id);
@@ -55,33 +44,8 @@ namespace AspNetWebApi.Controllers
             return Util.ResponseSuccess(Request, produtoCategoria, "Sucesso");
         }
 
-        [HttpPut]
-        [Route("api/produtocategorias/{id}/update")]
-        public IHttpActionResult Update(long id, ProdutoCategoriaClass produtoCategoriaClass)
-        {
-            var _Cate = db.ProdutoCategorias;
-            ProdutoCategoria categoria = _Cate.Find(id);
-
-            try
-            {
-                if (categoria != null)
-                {
-                    produtoCategoriaClass.mapToModel(categoria);
-
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                return Util.ResponseError(Request, e);
-            }
-
-            produtoCategoriaClass.mapFromModel(categoria);
-
-            return Util.ResponseSuccess(Request, produtoCategoriaClass, "Categoria de Produto atualizado com sucesso!");
-        }
-
         [HttpPost]
+        [Route("api/produtocategoria/novo")]
         public IHttpActionResult Novo(ProdutoCategoriaClass produtoCategoria)
         {
             if (!ModelState.IsValid)
@@ -106,8 +70,33 @@ namespace AspNetWebApi.Controllers
             return Util.ResponseSuccess(Request, produtoCategoria, "Categoria de Produto inserido com sucesso!");
         }
 
+        [HttpPut]
+        [Route("api/produtocategoria/{id}/update")]
+        public IHttpActionResult Update(long id, ProdutoCategoriaClass produtoCategoriaClass)
+        {
+            ProdutoCategoria categoria = db.ProdutoCategorias.Find(id);
+
+            try
+            {
+                if (categoria != null)
+                {
+                    produtoCategoriaClass.mapToModel(categoria);
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                return Util.ResponseError(Request, e);
+            }
+
+            produtoCategoriaClass.mapFromModel(categoria);
+
+            return Util.ResponseSuccess(Request, produtoCategoriaClass, "Categoria de Produto atualizado com sucesso!");
+        }
+
         [HttpDelete]
-        [Route("api/produtocategorias/{id}/remove")]
+        [Route("api/produtocategoria/{id}/remove")]
         public IHttpActionResult DeleteProdutoCategoria(long id)
         {
             try

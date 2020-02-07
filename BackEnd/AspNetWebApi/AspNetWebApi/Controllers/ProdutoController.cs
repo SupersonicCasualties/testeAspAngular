@@ -5,12 +5,7 @@ using AspNetWebApi.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace AspNetWebApi.Controllers
@@ -22,9 +17,7 @@ namespace AspNetWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var _dbCon = db.Produtos;
-
-            var produtos = _dbCon.Include(b => b.ProdutoCategoria).ToList();
+            var produtos = db.Produtos.Include(b => b.ProdutoCategoria).ToList();
             var produtosList = new List<BaseClass>();
 
             foreach (var prod in produtos)
@@ -54,6 +47,7 @@ namespace AspNetWebApi.Controllers
         }
 
         [HttpPost]
+        [Route("api/produto/novo")]
         public IHttpActionResult Novo(ProdutoClass produtoClass)
         {
             if (!ModelState.IsValid)
@@ -86,8 +80,7 @@ namespace AspNetWebApi.Controllers
         [Route("api/produto/{id}/update")]
         public IHttpActionResult Update(long id, ProdutoClass produtoClass)
         {
-            var _Cate = db.Produtos;
-            Produto produto = _Cate.Include(b => b.ProdutoCategoria).First(b => b.Id == id);
+            Produto produto = db.Produtos.Include(b => b.ProdutoCategoria).First(b => b.Id == id);
 
             try
             {
