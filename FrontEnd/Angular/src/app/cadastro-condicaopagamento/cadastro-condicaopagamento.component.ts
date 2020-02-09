@@ -1,4 +1,4 @@
-import { Produtocategoria } from "./../classes/Produtocategoria";
+import { Condicaopagamento } from "./../classes";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ApiService } from "../api.service";
@@ -7,21 +7,20 @@ import { DataService } from "../data.service";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: "app-cadastro-produtocategoria",
-  templateUrl: "./cadastro-produtocategoria.component.html",
-  styleUrls: ["./cadastro-produtocategoria.component.css"]
+  selector: "app-cadastro-condicaopagamento",
+  templateUrl: "./cadastro-condicaopagamento.component.html",
+  styleUrls: ["./cadastro-condicaopagamento.component.css"]
 })
-export class CadastroProdutocategoriaComponent implements OnInit {
-  Cliente: Produtocategoria;
-  idProdutoCategoria: number;
+export class CadastroCondicaopagamentoComponent implements OnInit {
+  Cliente: Condicaopagamento;
+  idCondicaoPagamento: number;
   form: FormGroup;
-  title: string = "Nova Categoria de Produto";
+  title: string = "Nova Condição de Pagamento";
 
   type: string = "new";
   isEdit: boolean = false;
 
-  myRoute: string = "produtocategoria";
-
+  myRoute: string = "condicaopagamento";
   constructor(
     private formBuilder: FormBuilder,
     private api: ApiService,
@@ -34,18 +33,19 @@ export class CadastroProdutocategoriaComponent implements OnInit {
     this.api.setRoute(this.myRoute);
 
     this.form = this.formBuilder.group({
-      Descricao: ["", [Validators.required]]
+      Descricao: ["", [Validators.required]],
+      Tipo: ["", [Validators.required]]
     });
 
-    this.idProdutoCategoria = this.activatedRoute.snapshot.params["id"];
+    this.idCondicaoPagamento = this.activatedRoute.snapshot.params["id"];
   }
 
   ngOnInit() {
-    if (this.idProdutoCategoria) {
+    if (this.idCondicaoPagamento) {
       this.isEdit = this.activatedRoute.snapshot.routeConfig.path.includes(
         "edit"
       );
-      this.viewOrEditCategoria();
+      this.viewOrEditCondicao();
     }
   }
 
@@ -67,14 +67,14 @@ export class CadastroProdutocategoriaComponent implements OnInit {
       console.log("Error", error);
     };
 
-    let categoria = this.form.value as Produtocategoria;
+    let condicao = this.form.value as Condicaopagamento;
 
     if (this.isEdit) {
       this.api
-        .apiUpdate(categoria, this.idProdutoCategoria)
+        .apiUpdate(condicao, this.idCondicaoPagamento)
         .subscribe(fnSuccess, fnError);
     } else {
-      this.api.apiPost(categoria).subscribe(fnSuccess, fnError);
+      this.api.apiPost(condicao).subscribe(fnSuccess, fnError);
     }
   }
 
@@ -82,8 +82,8 @@ export class CadastroProdutocategoriaComponent implements OnInit {
     this.router.navigate([this.myRoute]);
   }
 
-  viewOrEditCategoria() {
-    this.api.apiGetById(this.idProdutoCategoria).subscribe(data => {
+  viewOrEditCondicao() {
+    this.api.apiGetById(this.idCondicaoPagamento).subscribe(data => {
       if (data.Code == 200) {
         this.setData(data.Data);
       }
@@ -108,10 +108,10 @@ export class CadastroProdutocategoriaComponent implements OnInit {
     if (!this.isEdit) {
       this.form.disable();
       this.type = "view";
-      this.data.changeTitle("Visualizando Categoria de Produto");
+      this.data.changeTitle("Visualizando Condição de Pagamento");
     } else {
       this.type = "edit";
-      this.data.changeTitle("Editando Categoria de Produto");
+      this.data.changeTitle("Editando Condição de Pagamento");
     }
   }
 }

@@ -21,6 +21,17 @@
             Categoria de Produtos
           </a>
         </li>
+        <li
+          class="{{ this.activeRoute == 'condicaopagamento' ? 'active' : '' }}"
+        >
+          <a
+            class="nav-anchor"
+            mat-button
+            [routerLink]="['/condicaopagamento']"
+          >
+            Condições de Pagamento
+          </a>
+        </li>
       </ul>
     </mat-toolbar-row>
   </mat-toolbar>

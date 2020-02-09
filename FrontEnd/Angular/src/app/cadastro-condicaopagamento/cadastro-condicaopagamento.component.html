@@ -1,0 +1,34 @@
+<mat-card style="margin:32px;">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input-md m-r-10">
+      <input matInput placeholder="Descrição" formControlName="Descricao" />
+      <mat-error *ngIf="form.controls.Descricao.hasError('required')">
+        A Descrição é <strong>obrigatório!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Tipo" formControlName="Tipo" name="Tipo">
+        <mat-option [value]="1">A Vista</mat-option>
+        <mat-option [value]="2">Cartão de Crédito</mat-option>
+        <mat-option [value]="3">Prazo</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.Tipo.hasError('required')">
+        O Tipo é <strong>obrigatório!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <br />
+    <br />
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-right: 10px;"
+      *ngIf="this.type != 'view'"
+    >
+      Salvar
+    </button>
+    <button mat-raised-button color="accent" (click)="back()">Voltar</button>
+  </form>
+</mat-card>
