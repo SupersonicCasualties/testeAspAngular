@@ -1,0 +1,41 @@
+<mat-grid-list cols="2" rowHeight="50px">
+  <mat-grid-tile>
+    <div class="titulo">
+      <h1>Clientes</h1>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button (click)="newClient()">
+      Novo Cliente
+      <i class="material-icons">
+        add
+      </i>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<ul class="list">
+  <li *ngFor="let cliente of clientes$">
+    <a [routerLink]="" (click)="viewClient(cliente.Id)">{{ cliente.Nome }}</a>
+
+    <ul class="nav-list">
+      <li class="display-data">{{ cliente.Email }}</li>
+      <li class="display-data">
+        Endereço:
+        {{ cliente.Rua + " " + cliente.Numero + " - " + cliente.Bairro }}
+      </li>
+      <li>
+        <button mat-button (click)="editClient(cliente.Id)">
+          <i class="material-icons">
+            edit
+          </i>
+        </button>
+        <button mat-button class="text-red" (click)="removeClient(cliente.Id)">
+          <i class="material-icons">
+            delete_forever
+          </i>
+        </button>
+      </li>
+    </ul>
+  </li>
+</ul>

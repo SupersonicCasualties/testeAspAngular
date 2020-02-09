@@ -1,0 +1,89 @@
+<mat-card style="margin:32px;">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input-md m-r-10">
+      <input matInput placeholder="Nome" formControlName="Nome" />
+      <mat-error *ngIf="form.controls.Nome.hasError('required')">
+        O nome é <strong>obrigatório!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-mm m-r-10">
+      <input matInput placeholder="E-Mail" formControlName="Email" />
+      <mat-error *ngIf="form.controls.Email.hasError('required')">
+        O e-mail é <strong>obrigatório!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input
+        matInput
+        placeholder="CPF"
+        formControlName="Cpf"
+        mask="000.000.000-00"
+      />
+    </mat-form-field>
+
+    <br />
+    <br />
+
+    <mat-form-field class="input-xs m-r-10">
+      <input matInput placeholder="Uf" formControlName="Uf" mask="AA" />
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input matInput placeholder="Cidade" formControlName="Cidade" />
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input matInput placeholder="Bairro" formControlName="Bairro" />
+    </mat-form-field>
+
+    <mat-form-field class="input-mm m-r-10">
+      <input matInput placeholder="Rua" formControlName="Rua" />
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input matInput placeholder="Número" formControlName="Numero" />
+      <mat-error *ngIf="form.controls.Numero.hasError('pattern')">
+        Somente números
+      </mat-error>
+    </mat-form-field>
+
+    <br />
+    <br />
+
+    <mat-form-field class="input-mm m-r-10">
+      <input
+        matInput
+        placeholder="Ponto de Referência"
+        formControlName="PontoReferencia"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input matInput placeholder="Complemento" formControlName="Complemento" />
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input
+        matInput
+        placeholder="Cep"
+        formControlName="Cep"
+        mask="00000-000"
+      />
+    </mat-form-field>
+
+    <br />
+    <br />
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-right: 10px;"
+      *ngIf="this.type != 'view'"
+    >
+      Salvar
+    </button>
+    <button mat-raised-button color="accent" (click)="back()">Voltar</button>
+  </form>
+</mat-card>

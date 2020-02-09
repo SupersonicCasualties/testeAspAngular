@@ -1,1 +1,30 @@
-<router-outlet></router-outlet>
+<div id="container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>{{ this.title }}</span>
+
+      <ul class="nav-list">
+        <li class="{{ this.activeRoute == 'contatos' ? 'active' : '' }}">
+          <a class="nav-anchor" mat-button [routerLink]="['/contatos']">
+            Contatos
+          </a>
+        </li>
+        <li class="{{ this.activeRoute == 'cliente' ? 'active' : '' }}">
+          <a class="nav-anchor" mat-button [routerLink]="['/cliente']">
+            Cliente
+          </a>
+        </li>
+        <li
+          class="{{ this.activeRoute == 'produtocategoria' ? 'active' : '' }}"
+        >
+          <a class="nav-anchor" mat-button [routerLink]="['/produtocategoria']">
+            Categoria de Produtos
+          </a>
+        </li>
+      </ul>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div id="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

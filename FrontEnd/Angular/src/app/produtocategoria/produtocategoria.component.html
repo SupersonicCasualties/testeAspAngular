@@ -1,0 +1,46 @@
+<mat-grid-list cols="2" rowHeight="50px">
+  <mat-grid-tile>
+    <div class="titulo">
+      <h1>Categoria de Produtos</h1>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button (click)="newCategoria()">
+      Nova Categoria
+      <i class="material-icons">
+        add
+      </i>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<ul class="list">
+  <li *ngFor="let categoria of categorias$">
+    <ul class="nav-list">
+      <li>
+        <a
+          style="font-size: 1.5em;"
+          [routerLink]=""
+          (click)="viewCategoria(categoria.Id)"
+          >{{ categoria.Descricao }}</a
+        >
+      </li>
+      <li>
+        <button mat-button (click)="editCategoria(categoria.Id)">
+          <i class="material-icons">
+            edit
+          </i>
+        </button>
+        <button
+          mat-button
+          class="text-red"
+          (click)="removeClient(categoria.Id)"
+        >
+          <i class="material-icons">
+            delete_forever
+          </i>
+        </button>
+      </li>
+    </ul>
+  </li>
+</ul>

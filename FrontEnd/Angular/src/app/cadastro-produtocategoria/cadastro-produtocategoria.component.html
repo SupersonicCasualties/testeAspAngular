@@ -1,0 +1,23 @@
+<mat-card style="margin:32px;">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input-md m-r-10">
+      <input matInput placeholder="Descrição" formControlName="Descricao" />
+      <mat-error *ngIf="form.controls.Descricao.hasError('required')">
+        A Descrição é <strong>obrigatório!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <br />
+    <br />
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-right: 10px;"
+      *ngIf="this.type != 'view'"
+    >
+      Salvar
+    </button>
+    <button mat-raised-button color="accent" (click)="back()">Voltar</button>
+  </form>
+</mat-card>

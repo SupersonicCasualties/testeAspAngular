@@ -1,25 +1,19 @@
-<mat-toolbar color="primary">
-	<mat-toolbar-row>
-		<span>Novo Mensagem</span>
-	</mat-toolbar-row>
-</mat-toolbar>
-
 <mat-card style="margin:32px;">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+      <textarea
+        matInput
+        placeholder="Mensagem"
+        formControlName="descricao"
+      ></textarea>
+      <mat-error *ngIf="form.controls.descricao.hasError('required')">
+        A mensagem é <strong>requerida</strong>
+      </mat-error>
+    </mat-form-field>
 
-	<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <br />
+    <br />
 
-		<mat-form-field class="full-width">
-			<textarea matInput placeholder="Mensagem" formControlName="descricao"></textarea>
-			<mat-error *ngIf="form.controls.descricao.hasError('required')">
-				A mensagem é <strong>requerida</strong>
-			</mat-error>
-		</mat-form-field>
-
-		<br />
-		<br />
-
-		<button mat-raised-button color="primary">Salvar</button>
-
-	</form>
-
+    <button mat-raised-button color="primary">Salvar</button>
+  </form>
 </mat-card>
