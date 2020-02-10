@@ -200,7 +200,7 @@ export class CadastroPedidoComponent implements OnInit {
     item.ProdutoId = produto.Id;
     item.Produto = produto;
     item.Quantidade = quantidade;
-    item.ValorBruto = quantidade * produto.PrecoVenda;
+    item.ValorBruto = parseFloat(this.formataDecimal(quantidade * produto.PrecoVenda));
     item.ValorLiquido = item.ValorBruto - desconto;
     item.Desconto = desconto;
 
@@ -228,4 +228,32 @@ export class CadastroPedidoComponent implements OnInit {
 
     this.listProdutos = this.listProdutos.filter(p => p.Produto.Id != id);
   }
+
+
+
+/**
+ * Arredonda valores e mostra no padrao BR
+ * @param { number } valor Valor a ser arredondado
+ * @param { integer } decimais Numero de casas decimais
+ */
+formataDecimal(valor, decimais = 2) {
+  var n = valor;
+  var c = isNaN((decimais = Math.abs(decimais))) ? 2 : decimais;
+  var d = ".";
+  var t = ",";
+  var s = n < 0 ? "-" : "";
+  var i: any = parseInt((n = Math.abs(+n || 0).toFixed(c))) + "";
+  var j = (j = i.length) > 3 ? j % 3 : 0;
+  return (
+      s +
+      (j ? i.substr(0, j) + t : "") +
+      i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) +
+      (c
+          ? d +
+            Math.abs(n - i)
+                .toFixed(c)
+                .slice(2)
+          : "")
+  );
+}
 }

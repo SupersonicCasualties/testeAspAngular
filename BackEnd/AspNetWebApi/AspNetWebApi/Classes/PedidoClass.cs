@@ -72,7 +72,7 @@ namespace AspNetWebApi.Classes
             pedido.ValorLiquido = ValorLiquido;
             pedido.ValorBruto = ValorBruto;
             pedido.Desconto = Desconto;
-            pedido.DataHora = DataHora;
+            pedido.DataHora = DateTime.Now;
             pedido.CondicaoPagamento = CondicaoPagamento;
             pedido.CreatedAt = create ? DateTime.Now : CreatedAt;
             pedido.UpdatedAt = DateTime.Now;
@@ -85,7 +85,7 @@ namespace AspNetWebApi.Classes
             pedido.ValorLiquido = ValorLiquido > 0 ? ValorLiquido : pedido.ValorLiquido;
             pedido.ValorBruto = ValorBruto > 0 ? ValorBruto : pedido.ValorBruto;
             pedido.Desconto = Desconto > 0 ? Desconto : pedido.Desconto;
-            pedido.DataHora = DataHora;
+            pedido.DataHora = pedido.DataHora;
             pedido.CreatedAt = pedido.CreatedAt;
             pedido.UpdatedAt = DateTime.Now;
 

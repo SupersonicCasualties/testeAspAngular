@@ -22,7 +22,8 @@ namespace AspNetWebApi.Controllers
                 .Include(p => p.Cliente)
                 .Include(p => p.CondicaoPagamento)
                 .Include(p => p.PedidoItems)
-                .Include("PedidoItems.Produto")
+                .Include("PedidoItems.Produto") 
+                .OrderByDescending(p => p.DataHora)
                 .Take(25)
                 .ToList();
 

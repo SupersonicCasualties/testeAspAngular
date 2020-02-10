@@ -27,6 +27,7 @@ namespace AspNetWebApi.Classes
             Imagem = produto.Imagem;
             CodigoBarras = produto.CodigoBarras;
             ProdutoCategoria = produto.ProdutoCategoria;
+            ProdutoCategoriaId = produto.ProdutoCategoria.Id;
             CreatedAt = produto.CreatedAt;
             UpdatedAt = produto.UpdatedAt;
 

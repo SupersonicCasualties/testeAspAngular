@@ -15,7 +15,7 @@ namespace AspNetWebApi.Models
         [Required(ErrorMessage = "E-Mail é obrigatório!"), MaxLength(200), EmailAddress(ErrorMessage = "Email invalido!"), Index(IsUnique = true)]
         public string Email { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(14)]
         public string Cpf { get; set; }
 
         [MaxLength(2)]

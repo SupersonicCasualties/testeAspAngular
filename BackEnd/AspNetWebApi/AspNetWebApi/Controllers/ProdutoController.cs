@@ -17,7 +17,7 @@ namespace AspNetWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var produtos = db.Produtos.Include(b => b.ProdutoCategoria).ToList();
+            var produtos = db.Produtos.Include(b => b.ProdutoCategoria).OrderBy(p => p.Descricao).ToList();
             var produtosList = new List<BaseClass>();
 
             foreach (var prod in produtos)

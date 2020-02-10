@@ -16,7 +16,7 @@ namespace AspNetWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var condicoes = db.CondicaoPagamentos.ToList();
+            var condicoes = db.CondicaoPagamentos.OrderBy(c => c.Descricao).ToList();
             var condicaoList = new List<BaseClass>();
 
             foreach (var cond in condicoes)

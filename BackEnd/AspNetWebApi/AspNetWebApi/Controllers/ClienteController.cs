@@ -16,7 +16,7 @@ namespace AspNetWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var clientes = db.Clientes.ToList();
+            var clientes = db.Clientes.OrderBy(p => p.Nome).ToList();
             
             var clientesList = new List<BaseClass>();
 

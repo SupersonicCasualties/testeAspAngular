@@ -16,7 +16,7 @@ namespace AspNetWebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var categorias = db.ProdutoCategorias.ToList();
+            var categorias = db.ProdutoCategorias.OrderBy(c => c.descricao).ToList();
             var categoriasList = new List<BaseClass>();
 
             foreach (var cate in categorias)
