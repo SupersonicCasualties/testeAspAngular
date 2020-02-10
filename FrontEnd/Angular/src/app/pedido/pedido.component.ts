@@ -1,21 +1,20 @@
+import { Pedido } from "./../classes/Pedido";
 import { Component, OnInit } from "@angular/core";
-import { Produto } from "../classes";
+import Swal from "sweetalert2";
 import { ApiService } from "../api.service";
 import { Router } from "@angular/router";
 import { DataService } from "../data.service";
-import Swal from "sweetalert2";
 
 @Component({
-  selector: "app-produto",
-  templateUrl: "./produto.component.html",
-  styleUrls: ["./produto.component.css"]
+  selector: "app-pedido",
+  templateUrl: "./pedido.component.html",
+  styleUrls: ["./pedido.component.css"]
 })
-export class ProdutoComponent implements OnInit {
-  produtos$: Produto[];
-  title: string = "Produtos";
+export class PedidoComponent implements OnInit {
+  pedidos$: Pedido[];
+  title: string = "Pedidos";
 
-  myRoute: string = "produto";
-
+  myRoute: string = "pedido";
   constructor(
     private api: ApiService,
     private router: Router,
@@ -27,29 +26,28 @@ export class ProdutoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getProdutos();
+    this.getPedidos();
   }
 
-  private getProdutos() {
+  private getPedidos() {
     this.api.apiGet().subscribe(data => {
-      console.log(data.MultiData);
-      this.produtos$ = data.MultiData;
+      this.pedidos$ = data.MultiData;
     });
   }
 
-  newProduto() {
+  newPedido() {
     this.router.navigate([`${this.myRoute}/cadastro`]);
   }
 
-  viewProduto(id: Number) {
+  viewPedido(id: number) {
     this.router.navigate([`${this.myRoute}/${String(id)}`]);
   }
 
-  editProduto(id: number) {
+  editPedido(id: number) {
     this.router.navigate([`${this.myRoute}/${String(id)}/edit/`]);
   }
 
-  removeProduto(id: number) {
+  removePedido(id: number) {
     this.api.apiRemove(id).subscribe(data => {
       this.router.navigateByUrl("", { skipLocationChange: true }).then(() => {
         Swal.fire("Sucesso!", data.Message, "success");

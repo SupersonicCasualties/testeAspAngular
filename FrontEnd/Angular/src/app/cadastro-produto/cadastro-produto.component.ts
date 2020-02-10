@@ -109,13 +109,6 @@ export class CadastroProdutoComponent implements OnInit {
         let intObj = {
           [key]: data[key]
         };
-
-        if (key == "ProdutoCategoriaId") {
-          intObj = {
-            [key]: data.ProdutoCategoria.Id
-          };
-        }
-
         valueObj = {
           ...valueObj,
           ...intObj

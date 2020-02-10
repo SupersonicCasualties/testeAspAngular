@@ -1,6 +1,7 @@
 import { Produtocategoria } from ".";
 
 export class Produto {
+  public Id: number;
   public Descricao: string;
   public PrecoVenda: number;
   public Imagem: string;

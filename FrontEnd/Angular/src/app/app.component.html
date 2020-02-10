@@ -41,6 +41,12 @@
             Produtos
           </a>
         </li>
+
+        <li class="{{ this.activeRoute == 'pedido' ? 'active' : '' }}">
+          <a class="nav-anchor" mat-button [routerLink]="['/pedido']">
+            Pedido
+          </a>
+        </li>
       </ul>
     </mat-toolbar-row>
   </mat-toolbar>

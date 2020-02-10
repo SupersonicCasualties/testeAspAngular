@@ -1,0 +1,107 @@
+<mat-card style="margin:32px;">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input-md m-r-10">
+      <mat-select
+        placeholder="Cliente"
+        formControlName="ClienteId"
+        name="ClienteId"
+      >
+        <mat-option *ngFor="let cliente of clientes$" [value]="cliente.Id">{{
+          cliente.Nome
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.ClienteId.hasError('required')">
+        O Cliente é <strong>obrigatória!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-md m-r-10">
+      <mat-select
+        placeholder="Condição de Pagamento"
+        formControlName="CondicaoPagamentoId"
+        name="CondicaoPagamentoId"
+      >
+        <mat-option *ngFor="let condicao of condicoes$" [value]="condicao.Id">{{
+          condicao.Descricao
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.ClienteId.hasError('required')">
+        A Condição de Pagamento é <strong>obrigatória!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <br />
+    <br />
+
+    <mat-form-field class="input-md m-r-10">
+      <mat-select
+        placeholder="Produto"
+        formControlName="ProdutoId"
+        name="ProdutoId"
+        (selectionChange)="eventProdutoChanged($event.value)"
+      >
+        <mat-option *ngFor="let produto of produtos$" [value]="produto.Id">{{
+          produto.Descricao
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input matInput placeholder="Preço" formControlName="ValorProduto" />
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input
+        matInput
+        placeholder="Quantidade"
+        formControlName="QuantidadeProduto"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input
+        matInput
+        placeholder="Desconto"
+        formControlName="DescontoProduto"
+      />
+    </mat-form-field>
+
+    <button mat-raised-button color="warn" (click)="addProduto($event)">
+      Adicionar
+    </button>
+
+    <br />
+    <br />
+
+    <strong>Produtos</strong>
+
+    <mat-nav-list>
+      <mat-list-item *ngFor="let produto of listProdutos">
+        Produto: {{ produto.Produto.Descricao }} - Quantidade:
+        {{ produto.Quantidade }} - Valor: {{ produto.ValorLiquido }} - Desconto:
+        {{ produto.Desconto }}
+        <button
+          style="margin-left: 70px;"
+          mat-button
+          (click)="removerProduto($event, produto.Produto.Id)"
+          *ngIf="this.type != 'view'"
+        >
+          Remover
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <br />
+    <br />
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-right: 10px;"
+      *ngIf="this.type != 'view'"
+    >
+      Salvar
+    </button>
+    <button mat-raised-button color="accent" (click)="back()">Voltar</button>
+  </form>
+</mat-card>
