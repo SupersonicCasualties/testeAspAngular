@@ -78,6 +78,15 @@ body {
   width: 35%;
 }
 
+.vertical-middle {
+  vertical-align: top;
+}
+
+.li-desc {
+  text-align: left !important;
+  padding-left: 15px !important;
+}
+
 /* #container {
   display: grid;
   grid-template-columns: 70px auto;

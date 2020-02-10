@@ -20,6 +20,8 @@ import { ProdutocategoriaComponent } from "./produtocategoria/produtocategoria.c
 import { CadastroProdutocategoriaComponent } from "./cadastro-produtocategoria/cadastro-produtocategoria.component";
 import { CondicaopagamentoComponent } from "./condicaopagamento/condicaopagamento.component";
 import { CadastroCondicaopagamentoComponent } from "./cadastro-condicaopagamento/cadastro-condicaopagamento.component";
+import { ProdutoComponent } from "./produto/produto.component";
+import { CadastroProdutoComponent } from "./cadastro-produto/cadastro-produto.component";
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -70,6 +72,12 @@ const appRoutes: Routes = [
     component: CadastroCondicaopagamentoComponent
   },
 
+  // Cliente
+  { path: "produto", component: ProdutoComponent },
+  { path: "produto/cadastro", component: CadastroProdutoComponent },
+  { path: "produto/:id", component: CadastroProdutoComponent },
+  { path: "produto/:id/edit", component: CadastroProdutoComponent },
+
   // criar uma home
   { path: "", redirectTo: "/contatos", pathMatch: "full" }
 ];
@@ -86,7 +94,9 @@ const appRoutes: Routes = [
     ProdutocategoriaComponent,
     CadastroProdutocategoriaComponent,
     CondicaopagamentoComponent,
-    CadastroCondicaopagamentoComponent
+    CadastroCondicaopagamentoComponent,
+    ProdutoComponent,
+    CadastroProdutoComponent
   ],
   imports: [
     BrowserModule,

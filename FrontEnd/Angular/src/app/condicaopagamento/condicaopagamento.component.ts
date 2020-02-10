@@ -48,7 +48,7 @@ export class CondicaopagamentoComponent implements OnInit {
     this.router.navigate([`${this.myRoute}/${String(id)}/edit/`]);
   }
 
-  removeClient(id: number) {
+  removeCondicao(id: number) {
     this.api.apiRemove(id).subscribe(data => {
       this.router.navigateByUrl("", { skipLocationChange: true }).then(() => {
         Swal.fire("Sucesso!", data.Message, "success");

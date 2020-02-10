@@ -1,0 +1,76 @@
+<mat-card style="margin:32px;">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input-md m-r-10">
+      <input matInput placeholder="Descrição" formControlName="Descricao" />
+      <mat-error *ngIf="form.controls.Descricao.hasError('required')">
+        A Descrição é <strong>obrigatória!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="m-r-10 input-sm">
+      <mat-select
+        placeholder="Categoria do Produto"
+        formControlName="ProdutoCategoriaId"
+        name="ProdutoCategoriaId"
+      >
+        <mat-option
+          *ngFor="let categoria of categorias$"
+          [value]="categoria.Id"
+          >{{ categoria.Descricao }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="form.controls.ProdutoCategoriaId.hasError('required')">
+        A Categoria do Produto é <strong>obrigatória!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10">
+      <input
+        matInput
+        placeholder="Preço de Venda"
+        formControlName="PrecoVenda"
+      />
+      <mat-error *ngIf="form.controls.PrecoVenda.hasError('required')">
+        O Preço de Venda é <strong>obrigatório!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-sm m-r-10" *ngIf="this.type != 'new'">
+      <input
+        matInput
+        placeholder="Código de Barras"
+        formControlName="CodigoBarras"
+      />
+    </mat-form-field>
+
+    <br />
+
+    <div class="image-upload">
+      <img
+        [src]="form.get('Imagem').value"
+        *ngIf="form.get('Imagem').value"
+        style="max-width:300px;max-height:300px"
+      />
+      <input
+        name="imageUrl"
+        type="file"
+        accept="image/*"
+        (change)="handleImageEvent($event)"
+        *ngIf="this.type !== 'view'"
+      />
+    </div>
+
+    <br />
+    <br />
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="margin-right: 10px;"
+      *ngIf="this.type != 'view'"
+    >
+      Salvar
+    </button>
+    <button mat-raised-button color="accent" (click)="back()">Voltar</button>
+  </form>
+</mat-card>

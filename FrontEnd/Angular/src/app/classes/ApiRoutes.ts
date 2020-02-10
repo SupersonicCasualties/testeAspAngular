@@ -1,6 +1,6 @@
 export class ApiRoutes {
   private which: string = "";
-  private ApiUrl: string = "http://localhost:49493/api";
+  public ApiUrl: string = "http://localhost:49493/api";
   public getRoute: string;
   public getByIdRoute: string;
   public postRoute: string;

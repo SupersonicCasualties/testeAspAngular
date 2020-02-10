@@ -9,11 +9,13 @@
             Contatos
           </a>
         </li>
+
         <li class="{{ this.activeRoute == 'cliente' ? 'active' : '' }}">
           <a class="nav-anchor" mat-button [routerLink]="['/cliente']">
             Cliente
           </a>
         </li>
+
         <li
           class="{{ this.activeRoute == 'produtocategoria' ? 'active' : '' }}"
         >
@@ -21,6 +23,7 @@
             Categoria de Produtos
           </a>
         </li>
+
         <li
           class="{{ this.activeRoute == 'condicaopagamento' ? 'active' : '' }}"
         >
@@ -30,6 +33,12 @@
             [routerLink]="['/condicaopagamento']"
           >
             Condições de Pagamento
+          </a>
+        </li>
+
+        <li class="{{ this.activeRoute == 'produto' ? 'active' : '' }}">
+          <a class="nav-anchor" mat-button [routerLink]="['/produto']">
+            Produtos
           </a>
         </li>
       </ul>

@@ -21,8 +21,12 @@ export class ApiService {
     this.apiRoutes = new ApiRoutes(which).setVariables();
   }
 
-  apiGet() {
-    return this.http.get<IResponse>(this.apiRoutes.getRoute);
+  apiGet(otherRoute?: string) {
+    let url = this.apiRoutes.getRoute;
+    if (otherRoute) {
+      url = `${this.apiRoutes.ApiUrl}/${otherRoute}`;
+    }
+    return this.http.get<IResponse>(url);
   }
 
   apiGetById(id: number) {
